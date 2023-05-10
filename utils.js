@@ -5,7 +5,7 @@ const { BadRequestError } = require("./expressError");
 function convertStrNums(strNums) {
   // if the conversion isn't successful, throw a BadRequestError and will
   // be handled in your route
-
+  // TODO: check to see if cat is a number or not, add bad request error
   let result = [];
   for (let strNum of strNums) {
     result.push(Number(strNum));

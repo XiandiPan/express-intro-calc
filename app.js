@@ -15,16 +15,33 @@ const MISSING = "Expected key `nums` with comma-separated list of numbers.";
 
 /** Finds mean of nums in qs: returns {operation: "mean", result } */
 app.get("/mean", function (req, res) {
-  const intNums = convertStrNums(req.query.nums);
-  console.log(intNums);
+  console.log("nums",req.query.nums)
+  const queryNums = req.query.nums.split(','); //TODO: bad request error for all
+  const intNums = convertStrNums(queryNums);//TODO: intNums
+  console.log("intNum",intNums); //how to see the console.log
   const result = findMean(intNums);
-  debugger;
-  return res.json({ operation: "mean", value: `${result}` });
+
+  return res.json({ operation: "mean", value: result });
 });
 
-/** Finds median of nums in qs: returns {operation: "median", result } */
+// ** Finds median of nums in qs: returns {operation: "median", result } */
+app.get("/median", function (req, res) {
+  const queryNums = req.query.nums.split(',');
+  const intNums = convertStrNums(queryNums);
+  const result = findMedian(intNums);
+
+  return res.json({ operation: "median", value: `${result}` });
+});
+
 
 /** Finds mode of nums in qs: returns {operation: "mean", result } */
+app.get("/mode", function (req, res) {
+  const queryNums = req.query.nums.split(',');
+  const intNums = convertStrNums(queryNums);
+  const result = findMode(intNums);
+
+  return res.json({ operation: "mode", value: `${result}` });
+});
 
 /** 404 handler: matches unmatched routes; raises NotFoundError. */
 app.use(function (req, res) {
